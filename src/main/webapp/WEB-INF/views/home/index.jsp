@@ -26,11 +26,14 @@
 	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body ng-app="shopping-app" ng-controller="shopping-ctrl"
 	class="template-index belle home5-cosmetic">
+
 	
+
 	<div class="pageWrapper">
 		<%@include file="../layout/_header.jsp"%>
 
@@ -195,6 +198,18 @@
 							jQuery('#modalOverly').hide();
 						}
 					});
+		</script>
+		<script>
+			  document.addEventListener("DOMContentLoaded", function () {
+				let message = "${login}"; // Lấy thông báo từ server
+				if (message && message !== "null") {
+					Swal.fire({
+						title: "Thông báo",
+						text: message,
+						icon: "success"
+					});
+				}
+			});
 		</script>
 		<!--End For Newsletter Popup-->
 	</div>

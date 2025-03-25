@@ -1,7 +1,7 @@
 package edu.poly.duanjava6.service;
 
 import java.util.List;
-import java.util.Locale.Category;
+import edu.poly.duanjava6.bean.Category;
 
 public interface CategoryService {
 

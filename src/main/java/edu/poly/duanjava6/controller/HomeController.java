@@ -3,14 +3,14 @@ package edu.poly.duanjava6.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import edu.poly.duanjava6.bean.Role;
 import org.springframework.stereotype.Controller;
-
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import edu.poly.duanjava6.bean.Account;
 import edu.poly.duanjava6.bean.RoleDetail;
 import edu.poly.duanjava6.service.AccountService;
-// import edu.poly.duanjava6.service.BrandService;
-// import edu.poly.duanjava6.service.CategoryService;
+import edu.poly.duanjava6.service.BrandService;
+import edu.poly.duanjava6.service.CategoryService;
 // import edu.poly.duanjava6.service.MailerService;
-// import edu.poly.duanjava6.service.ProductService;
+import edu.poly.duanjava6.service.ProductService;
 import edu.poly.duanjava6.service.SessionService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.ui.Model;
@@ -21,12 +21,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class HomeController {
-    // @Autowired
-    // BrandService bService;// tự động khởi tạo và gán
-    // @Autowired
-    // CategoryService cService;
-    // @Autowired
-    // ProductService pService;
+    @Autowired
+    BrandService bService;
+    @Autowired
+    CategoryService cService;
+    @Autowired
+    ProductService pService;
     @Autowired
     SessionService session;
     @Autowired
@@ -35,21 +35,15 @@ public class HomeController {
     // MailerService mailer;
 
     @RequestMapping("/")
-    public String home() {
-        return "redirect:/login";
+    public String home(Model model) {
+        model.addAttribute("db", pService.findProductByCreateDateDESC());
+        return "home/index";
     }
 
     @RequestMapping("/admin")
     public String admin() {
         return "admin/index";
     }
-
-    // @RequestMapping("/")
-    // public String home(Model model) {
-    // // load ds product xep theo ngay tao
-    // model.addAttribute("db", pService.findProductByCreateDateDESC());
-    // return "home/index";
-    // }
 
     @GetMapping("/register")
     public String login(@ModelAttribute Account account) {
@@ -90,43 +84,33 @@ public class HomeController {
     public String login(Model model,
             @RequestParam(value = "username", required = false) String username) {
         model.addAttribute("username", username);
-        return "login"; // Trả về trang login.jsp
+        return "login"; 
     }
 
-    // @GetMapping("/login")
-    // public String login(Model model,
-    // @RequestParam(value = "username", required = false) String username) {
-    // model.addAttribute("username", username);
-    // return "login"; // Trả về trang login.html hoặc login.jsp
-    // }
-
     @PostMapping("/login")
-    public String login(Model model, @RequestParam(value = "username", required = true) String username,
-            @RequestParam(value = "password", required = true) String password) {
+    public String login(RedirectAttributes redirectAttributes, 
+                        @RequestParam("username") String username,
+                        @RequestParam("password") String password) {
         try {
             Account account = aService.findByUsername(username);
             if (!account.getPassword().equals(password)) {
-                model.addAttribute("message", "Sai mật khẩu");
-
+                redirectAttributes.addFlashAttribute("message", "Sai mật khẩu!");
+                return "redirect:/login";
             } else {
-                String uri = session.get("security-uri");
-                // if (uri != null) {
-                // return "redirect:" + uri;
-                // }
                 session.set("user", account);
                 if (this.checkAdmin(account)) {
                     session.set("userAdmin", "admin");
                     return "redirect:/admin";
                 }
-                model.addAttribute("message", "Đăng nhập thành công");
+                redirectAttributes.addFlashAttribute("login", "Đăng nhập thành công!");
                 return "redirect:/";
             }
-
         } catch (Exception e) {
-            model.addAttribute("message", "Sai tên đăng nhập");
+            redirectAttributes.addFlashAttribute("message", "Sai tên đăng nhập!");
+            return "redirect:/login";
         }
-        return "login";
     }
+
 
     public Boolean checkAdmin(Account account) {
         for (RoleDetail roleDetail : account.getRoleDetails()) {
@@ -139,11 +123,12 @@ public class HomeController {
     }
 
     @RequestMapping("/logout")
-    public String logoutSucces(Model model) {
+    public String logoutSucces(RedirectAttributes redirectAttributes, Model model) {
         session.remove("user");
         session.remove("userAdmin");
         session.remove("security-uri");
         session.remove("uri");
+        redirectAttributes.addFlashAttribute("logout", "Đăng xuất thành công");
         model.addAttribute("message", "Đăng xuất thành công");
         return "login";
     }
