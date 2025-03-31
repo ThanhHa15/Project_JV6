@@ -25,6 +25,8 @@
 	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 
 <body ng-app="shopping-app" ng-controller="shopping-ctrl"
@@ -174,11 +176,9 @@
 							</div>
 
 							<hr />
-
-
 									<div class="order-button-payment">
 										<button ng-disabled="frmOrder.$invalid"
-											ng-click="order.purchase()" class="btn" value="Place order"
+											ng-click="order.purchase()" onclick="showNotification()" class="btn" value="Place order"
 											type="submit">Submit</button>
 									</div>
 								</div>
@@ -225,6 +225,16 @@
 							jQuery('#modalOverly').hide();
 						}
 					});
+		</script>
+		<script>
+			function showNotification() {
+				Swal.fire({
+					title: "Thành công!",
+					text: "Đặt hàng thành công!",
+					icon: "success",
+					confirmButtonText: "OK"
+				});
+			}
 		</script>
 		<!--End For Newsletter Popup-->
 	</div>

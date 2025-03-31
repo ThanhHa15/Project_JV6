@@ -27,6 +27,8 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 
 <body ng-app="shopping-app" ng-controller="shopping-ctrl"
@@ -101,7 +103,7 @@
 											<div class="button-set">
 												<!-- Start product button -->
 												<form class="variants add" action="#" method="post">
-													<button ng-click="cart.add(${d.product.id})"
+													<button ng-click="cart.add(${d.product.id})" onclick="showNotification()"
 														class="btn cartIcon btn-addto-cart" type="button"
 														tabindex="0">
 														<i class="icon anm anm-bag-l"></i>
@@ -211,6 +213,16 @@
 				}
 			});
 		</script>
+		<script>
+			function showNotification() {
+				Swal.fire({
+					title: "Thành công!",
+					text: "Đơn hàng đã được thêm vào giỏ hàng!",
+					icon: "success",
+					confirmButtonText: "OK"
+				});
+			}
+</script>
 		<!--End For Newsletter Popup-->
 	</div>
 </body>
