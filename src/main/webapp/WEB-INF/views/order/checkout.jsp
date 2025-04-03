@@ -153,6 +153,7 @@
 												<th>Price</th>
 												<th>Quantity</th>
 												<th>Total</th>
+												<th>status</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -161,7 +162,24 @@
 												<td>{{i.price | number: 0}}</td>
 												<td>{{i.qty}}</td>
 												<td>{{cart.priceItem(i.id) | number: 0}}</td>
+												<td>
+													<!-- Nếu user là admin thì hiển thị dropdown -->
+													<div ng-if="user.isAdmin">
+														<select class="form-control" ng-model="i.status" ng-change="cart.updateStatus(i)">
+															<option value="PENDING">Pending</option>
+															<option value="SHIPPED">Shipping</option>
+															<option value="DELIVERED">Delivered</option>
+															<option value="CANCELLED">Cancelled</option>
+														</select>
+													</div>
+												
+													<!-- Nếu user KHÔNG phải admin thì chỉ hiển thị trạng thái đơn hàng -->
+													<div ng-if="!user.isAdmin">
+														{{ i.status }}
+													</div>
+												</td>												
 											</tr>
+										
 										</tbody>
 										<tfoot class="font-weight-600">
 											<tr>
@@ -225,6 +243,37 @@
 							jQuery('#modalOverly').hide();
 						}
 					});
+
+					app.controller("shopping-ctrl", function ($scope, $http) {
+    $scope.user = {}; // Biến lưu thông tin user
+
+    // Lấy thông tin người dùng từ server (ví dụ: /api/user)
+    $http.get("/api/user").then(function (response) {
+        $scope.user = response.data; // Cập nhật thông tin user
+    });
+
+    // Hàm cập nhật trạng thái đơn hàng
+    $scope.cart.updateStatus = function (item) {
+        if (!$scope.user.isAdmin) {
+            alert("Bạn không có quyền thay đổi trạng thái đơn hàng.");
+            return;
+        }
+
+        $http.post("/api/updateOrderStatus", {
+            orderId: item.id,
+            status: item.status
+        }).then(function (response) {
+            alert("Cập nhật trạng thái thành công!");
+            item.status = response.data.status; // Cập nhật lại trạng thái từ server
+        }).catch(function (error) {
+            console.error("Lỗi khi cập nhật trạng thái:", error);
+            alert("Cập nhật trạng thái thất bại. Kiểm tra console để biết chi tiết.");
+        });
+    };
+});
+
+
+
 		</script>
 		<!--End For Newsletter Popup-->
 	</div>

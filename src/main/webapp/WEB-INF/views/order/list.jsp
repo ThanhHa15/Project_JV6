@@ -60,6 +60,7 @@
 												hàng</th>
 											<th class="product-name alt-font">Ngày mua</th>
 											<th class="product-price text-center alt-font">Tổng tiền</th>
+											<th class="product-status text-center alt-font">Trạng thái</th> 
 											<th class="product-subtotal text-center alt-font"></th>
 										</tr>
 									</thead>
@@ -74,9 +75,14 @@
 														</h4></td>
 													<td class="product-price text-center"><span
 														class="amount">${o.total}</span></td>
+														<td class="product-status text center">	
+															<span class="status">${o.order.status}</span>											
+														</td>
 													<td class="product-subtotal text-center"><a
 														href="/order/detail/${o.order.id}"
-														class="btn btn-small text-white">Xem chi tiết</a></td>
+														class="btn btn-small text-white">Xem chi tiết</a>
+													</td>
+
 												</tr>
 										</c:forEach>
 									</tbody>
