@@ -145,6 +145,8 @@
 												<th>Giá</th>
 												<th>Số lượng</th>
 												<th>Tổng cộng</th>
+												<th>Trạng thái</th>
+												
 											</tr>
 										</thead>
 										<tbody>
@@ -154,6 +156,7 @@
 													<td>${(o.price)}</td>
 													<td>${o.quantity}</td>
 													<td>${o.price * o.quantity}</td>
+													<td>${o.order.status}</td>
 												</tr>
 											</c:forEach>
 										</tbody>

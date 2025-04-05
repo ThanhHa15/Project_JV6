@@ -39,4 +39,6 @@ public class Order {
     @JsonIgnore
     @OneToMany(mappedBy = "order")
     private List<OrderDetail> orderDetails;
+    @Column(name = "status")
+    private String status = ""; // Giá trị mặc định là "PENDING"
 }

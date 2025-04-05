@@ -2,16 +2,17 @@ package edu.poly.duanjava6.service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
+
+import com.fasterxml.jackson.databind.JsonNode;
 
 import edu.poly.duanjava6.bean.Product;
 import edu.poly.duanjava6.bean.ProductCategory;
 
-import java.util.Optional;
-import com.fasterxml.jackson.databind.JsonNode;
-
 public interface ProductService {
+
     List<Product> findAll();
 
     boolean existsById(Long id);
@@ -55,5 +56,13 @@ public interface ProductService {
     Map<String, Object> ProductDetail(Long id);
 
     Page<Product> findProductByListCategory(List<String> cid, Optional<Integer> p);
+
+    // Page<Product> findPageProduct(Optional<String> kw, Optional<String> cid,
+    // Optional<String> brandid, Optional<Integer> p);
+    //
+    // List<Map<String, Object>> findProductByKeywordAndPage(Optional<String> kw,
+    // Optional<String> cid, Optional<String> brandid, Optional<Integer> p);
+
+    // List<Map<String, Object>> findByCategoryId(String id, Optional<Integer> p);
 
 }
