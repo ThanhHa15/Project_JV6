@@ -31,7 +31,6 @@ public class HomeController {
     SessionService session;
     @Autowired
     AccountService aService;
-    
     @Autowired
     MailerService mailer;
 
@@ -134,29 +133,37 @@ public class HomeController {
         return "login";
     }
 
-    @GetMapping("forgot-password")
-	public String forgot() {
-		return "forgot";
-	}
-	
-	@PostMapping("forgot-password")
-	public String forgot(@RequestParam("username") String username, Model model) {
-		try {
-			Account account = aService.findByUsername(username);
-			String to = account.getEmail();
-			String email = to.substring(0, 2);
-			double randomDouble = Math.random();
-			randomDouble = randomDouble * 1000000 + 1;
-			int randomInt = (int) randomDouble;
-			String subject = "Lấy lại mật khẩu";
-			String body = "Mật khẩu của bạn là:"+randomInt;
-			mailer.send(to, subject, body);
-			account.setPassword(String.valueOf(randomInt));
-			aService.save(account);
-			model.addAttribute("message", "Mật khẩu mới đã được gửi đến mail "+email+"***");
-		} catch (Exception e) {
-			model.addAttribute("message", "Invalid Username");
-		}
-		return "forgot";
-	}
+    @GetMapping("/forgot-password")
+    public String forgot() {
+        return "forgot";
+    }
+
+    @PostMapping("forgot-password")
+    public String forgot(@RequestParam("username") String username, Model model)
+    {
+        try {
+        Account account = aService.findByUsername(username);
+        String to = account.getEmail();
+        String email = to.substring(0, 2);
+
+        double randomDouble = Math.random();
+        randomDouble = randomDouble * 1000000 + 1;
+        int randomInt = (int) randomDouble;
+
+        String subject = "Lấy lại mật khẩu";
+        String body = "Mật khẩu của bạn là:" + randomInt;
+        mailer.send(to, subject, body);
+
+        account.setPassword(String.valueOf(randomInt));
+        aService.save(account);
+
+        model.addAttribute("message", "Mật khẩu mới đã được gửi đến mail " + email +
+        "***");
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("message", "Invalid Username");
+        }
+        return "forgot";
+    }
+
 }

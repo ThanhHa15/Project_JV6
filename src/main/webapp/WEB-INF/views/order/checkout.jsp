@@ -115,17 +115,45 @@
 									</div>
 								</fieldset>
 								<fieldset>
-									<div class="row">
-										<div class="form-group col-md-6 col-lg-6 col-xl-6 required">
-											<label for="input-address-1">Address <span
-												class="required-f">*</span></label> <input name="address"
-												ng-model="order.address" id="input-address-1" required
-												type="text">
-											<div ng-show="frmOrder.address.$invalid"
-												class="badge badge-danger m-2">Please enter address</div>
-										</div>
-									</div>
-								</fieldset>
+                                    <div class="row">
+                                        <div class="form-group col-md-12 col-lg-12 col-xl-12 required">
+                                            <label for="input-address-1">Address <span class="required-f">*</span></label>
+
+                                            <!-- Thêm các dropdown cho địa chỉ -->
+                                            <div class="row mb-3">
+                                                <div class="col-md-4">
+                                                    <select class="form-control" id="province" name="province" required>
+                                                        <option value="">Chọn tỉnh/thành phố</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <select class="form-control" id="district" name="district" required>
+                                                        <option value="">Chọn quận/huyện</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <select class="form-control" id="ward" name="ward" required>
+                                                        <option value="">Chọn phường/xã</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <!-- Ô nhập địa chỉ chi tiết -->
+                                            <input name="address" ng-model="order.address" id="input-address-1"
+                                                   placeholder="Số nhà, tên đường..." required type="text">
+                                            <div ng-show="frmOrder.address.$invalid" class="badge badge-danger m-2">
+                                                Please enter address
+                                            </div>
+
+                                            <!-- Full address sẽ hiển thị ở đây -->
+                                            <div class="form-group mt-3">
+                                                <label for="fulladdress">Full Address</label>
+                                                <input type="text" class="form-control" id="fulladdress"
+                                                       name="fulladdress" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
 								<fieldset>
 									<div class="row">
 										<div class="form-group col-md-12 col-lg-12 col-xl-12">
@@ -201,6 +229,8 @@
 		<!--End Scoll Top-->
 
 		<!-- Including Jquery -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js"></script>
 		<script src="/assets/js/vendor/jquery-3.3.1.min.js"></script>
 		<script src="/assets/js/vendor/modernizr-3.6.0.min.js"></script>
 		<script src="/assets/js/vendor/jquery.cookie.js"></script>
@@ -211,8 +241,52 @@
 		<script src="/assets/js/popper.min.js"></script>
 		<script src="/assets/js/lazysizes.js"></script>
 		<script src="/assets/js/main.js"></script>
+		<script src="/assets/js/address.js"></script>
 		<!-- Shopping cart -->
 		<script src="/assets/js/shopping-cart.js"></script>
+
+		<script>
+		// Thêm script để cập nhật full address
+		$(document).ready(function() {
+			// Hàm cập nhật full address
+			function updateFullAddress() {
+				const province = $('#province option:selected').text();
+				const district = $('#district option:selected').text();
+				const ward = $('#ward option:selected').text();
+				const address = $('#input-address-1').val();
+
+				let fullAddress = '';
+				if (address) fullAddress += address + ', ';
+				if (ward && ward !== 'Chọn phường/xã') fullAddress += ward + ', ';
+				if (district && district !== 'Chọn quận/huyện') fullAddress += district + ', ';
+				if (province && province !== 'Chọn tỉnh/thành phố') fullAddress += province;
+
+				// Loại bỏ dấu phẩy cuối cùng nếu có
+				fullAddress = fullAddress.replace(/, $/, '');
+
+				$('#fulladdress').val(fullAddress);
+
+				// Cập nhật vào Angular model nếu cần
+				if (typeof angular !== 'undefined') {
+					var scope = angular.element('[ng-controller="shopping-ctrl"]').scope();
+					if (scope) {
+						scope.$apply(function() {
+							scope.order.fullAddress = fullAddress;
+						});
+					}
+				}
+			}
+
+			// Gọi hàm update khi có thay đổi
+			$('#province, #district, #ward, #input-address-1').on('change input', function() {
+				updateFullAddress();
+			});
+
+			// Khởi tạo địa chỉ nếu có dữ liệu từ server
+			updateFullAddress();
+		});
+		</script>
+
 		<!--For Newsletter Popup-->
 		<script>
 			jQuery(document).mouseup(
@@ -229,6 +303,4 @@
 		<!--End For Newsletter Popup-->
 	</div>
 </body>
-
-
 </html>

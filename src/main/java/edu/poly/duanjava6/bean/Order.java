@@ -27,16 +27,19 @@ import lombok.NoArgsConstructor;
 @Table(name = "Orders")
 public class Order {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Temporal(TemporalType.DATE)
-    @Column(name = "createdate")
-    private Date createDate = new Date();
-    private String address;
-    @ManyToOne
-    @JoinColumn(name = "username")
-    private Account account;
-    @JsonIgnore
-    @OneToMany(mappedBy = "order")
-    private List<OrderDetail> orderDetails;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
+	@Temporal(TemporalType.DATE) //Ngày tạo đơn hàng, mặc định là ngày hiện tại).
+	@Column(name = "createdate")
+	private Date createDate = new Date();
+	private String address;
+
+	@ManyToOne
+	@JoinColumn(name = "username") //mỗi đơn hàng thuộc về một tài khoản 
+	private Account account;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "order") //Một đơn hàng có thể chứa nhiều chi tiết đơn hàng.
+	private List<OrderDetail> orderDetails;
 }

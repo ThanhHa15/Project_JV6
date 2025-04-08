@@ -1,6 +1,6 @@
 var app = angular.module("shopping-app",[]);
 app.controller("shopping-ctrl", function($scope, $http){
-	
+
 	$scope.cart = {
 		items: [],
 		add(id){
@@ -62,7 +62,7 @@ app.controller("shopping-ctrl", function($scope, $http){
 		return lstImage[0];
 	}
 	$scope.cart.loadFromLocalStorage();
-	
+
 	$scope.order = {
 		createDate: new Date(),
 		address: "",
@@ -75,7 +75,7 @@ app.controller("shopping-ctrl", function($scope, $http){
 					quantity: item.qty
 				}
 			});
-		}, 
+		},
 		purchase(){
 			var order = angular.copy(this);
 			console.log(order);
@@ -91,5 +91,5 @@ app.controller("shopping-ctrl", function($scope, $http){
 	}
 });
 app.controller("register",function($scope, Shttp){
-	
+
 });
