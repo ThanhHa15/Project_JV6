@@ -9,7 +9,7 @@ import edu.poly.duanjava6.bean.RoleDetail;
 import edu.poly.duanjava6.service.AccountService;
 import edu.poly.duanjava6.service.BrandService;
 import edu.poly.duanjava6.service.CategoryService;
-// import edu.poly.duanjava6.service.MailerService;
+import edu.poly.duanjava6.service.MailerService;
 import edu.poly.duanjava6.service.ProductService;
 import edu.poly.duanjava6.service.SessionService;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,8 +31,9 @@ public class HomeController {
     SessionService session;
     @Autowired
     AccountService aService;
-    // @Autowired
-    // MailerService mailer;
+    
+    @Autowired
+    MailerService mailer;
 
     @RequestMapping("/")
     public String home(Model model) {
@@ -133,37 +134,29 @@ public class HomeController {
         return "login";
     }
 
-    @GetMapping("/forgot-password")
-    public String forgot() {
-        return "forgot";
-    }
-
-    // @PostMapping("forgot-password")
-    // public String forgot(@RequestParam("username") String username, Model model)
-    // {
-    // try {
-    // Account account = aService.findByUsername(username);
-    // String to = account.getEmail();
-    // String email = to.substring(0, 2);
-
-    // double randomDouble = Math.random();
-    // randomDouble = randomDouble * 1000000 + 1;
-    // int randomInt = (int) randomDouble;
-
-    // String subject = "Lấy lại mật khẩu";
-    // String body = "Mật khẩu của bạn là:" + randomInt;
-    // mailer.send(to, subject, body);
-
-    // account.setPassword(String.valueOf(randomInt));
-    // aService.save(account);
-
-    // model.addAttribute("message", "Mật khẩu mới đã được gửi đến mail " + email +
-    // "***");
-    // } catch (Exception e) {
-    // // TODO: handle exception
-    // model.addAttribute("message", "Invalid Username");
-    // }
-    // return "forgot";
-    // }
-
+    @GetMapping("forgot-password")
+	public String forgot() {
+		return "forgot";
+	}
+	
+	@PostMapping("forgot-password")
+	public String forgot(@RequestParam("username") String username, Model model) {
+		try {
+			Account account = aService.findByUsername(username);
+			String to = account.getEmail();
+			String email = to.substring(0, 2);
+			double randomDouble = Math.random();
+			randomDouble = randomDouble * 1000000 + 1;
+			int randomInt = (int) randomDouble;
+			String subject = "Lấy lại mật khẩu";
+			String body = "Mật khẩu của bạn là:"+randomInt;
+			mailer.send(to, subject, body);
+			account.setPassword(String.valueOf(randomInt));
+			aService.save(account);
+			model.addAttribute("message", "Mật khẩu mới đã được gửi đến mail "+email+"***");
+		} catch (Exception e) {
+			model.addAttribute("message", "Invalid Username");
+		}
+		return "forgot";
+	}
 }

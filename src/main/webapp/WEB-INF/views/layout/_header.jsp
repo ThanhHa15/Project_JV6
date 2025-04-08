@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-	
 <div>
 	<!--Search Form Drawer-->
 	<div class="search">
@@ -26,7 +24,7 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-md-3">
-					<div class="language-dropdown">
+					<!-- <div class="language-dropdown">
 						<span class="language-dd">English</span>
 						<ul id="language">
 							<li class="">Việt Nam</li>
@@ -34,7 +32,7 @@
 					</div>
 					<p class="phone-no">
 						<i class="anm anm-phone-s"></i> +8999999999
-					</p>
+					</p> -->
 				</div>
 				<div class="col-md-1 d-none d-lg-none d-md-block d-lg-block">
 				</div>
@@ -44,7 +42,7 @@
 					<ul class="customer-links list-inline">
 						<c:if test="${not empty sessionScope.user }">
 	                        	<li><a  class="fw-bold" href="#"> ${sessionScope.user.username }</a></li>
-								<li><a href="#" onclick="confirmLogout()">Đăng xuất</a></li>
+	                        	<li><a href="/logout">Đăng xuất</a></li>
 	                        	<li><a href="/order/list">Đơn hàng</a></li>
 	                            <li><a href="#">Sản phẩm yêu thích</a></li>
 	                    </c:if>
@@ -67,7 +65,7 @@
 			<div class="row align-items-center">
 				<!--Desktop Logo-->
 				<div class="logo col-md-2 col-lg-2 d-none d-lg-block">
-					<a style="text-decoration: none;" href="/"><h1 style="font-size:20px; font-weight: 600; color: rgb(39, 39, 39);	">Đặc sản miền trung</h1> </a>
+					<a style="text-decoration: none;" href="/"><h1 style="font-size:20px; font-weight: 600; color: rgb(39, 39, 39);	">TRANG CHỦ</h1> </a>
 
 					
 				</div>
@@ -165,35 +163,3 @@
 	</div>
 	<!--End Mobile Menu-->
 </div>
-<script>
-    function confirmLogout() {
-        Swal.fire({
-            title: "Bạn có chắc muốn đăng xuất?",
-            text: "Bạn sẽ cần đăng nhập lại để tiếp tục!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Đăng xuất",
-            cancelButtonText: "Hủy"
-        }).then((result) => {
-            if (result.isConfirmed) {
-                window.location.href = "/logout"; // Điều hướng đến backend để xử lý đăng xuất
-            }
-        });
-    }
-
-    // Hiển thị thông báo khi đăng xuất thành công
-    // window.onload = function () {
-    //     let message = "[[${logout}]]";
-    //     if (message) {
-    //         Swal.fire({
-    //             title: "Thông báo",
-    //             text: message,
-    //             icon: "success",
-    //             timer: 2000,
-    //             showConfirmButton: false
-    //         });
-    //     }
-    // };
-</script>
