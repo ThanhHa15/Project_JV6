@@ -128,7 +128,6 @@
 											<div class="product-form__item--submit">
 												<button
 													ng-click="cart.add(${product.product.id}) "
-													onclick=" showNotification()"
 													type="button" name="add"
 													class="btn product-form__cart-submit">
 													<span id="AddToCartText-product-template">Thêm vào
@@ -330,19 +329,8 @@
 						}
 					});
 		</script>
-		<script>
-function showNotification() {
-    Swal.fire({
-        title: "Thành công!",
-        text: "Đơn hàng đã được thêm vào giỏ hàng!",
-        icon: "success",
-        confirmButtonText: "OK"
-    });
-}
-</script>
 		<!--End For Newsletter Popup-->
 	</div>
-
 </body>
 
 
