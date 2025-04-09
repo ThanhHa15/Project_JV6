@@ -139,17 +139,18 @@
                                             </div>
 
                                             <!-- Ô nhập địa chỉ chi tiết -->
-                                            <input name="address" ng-model="order.address" id="input-address-1"
+                                            <!-- <input name="address"  
                                                    placeholder="Số nhà, tên đường..." required type="text">
                                             <div ng-show="frmOrder.address.$invalid" class="badge badge-danger m-2">
                                                 Please enter address
-                                            </div>
+                                            </div> -->
 
                                             <!-- Full address sẽ hiển thị ở đây -->
                                             <div class="form-group mt-3">
                                                 <label for="fulladdress">Full Address</label>
-                                                <input type="text" class="form-control" id="fulladdress"
-                                                       name="fulladdress" readonly>
+                                                <input 
+												type="text" ng-model="order.address" class="form-control" id="fulladdress"
+                                                       name="address" >
                                             </div>
                                         </div>
                                     </div>

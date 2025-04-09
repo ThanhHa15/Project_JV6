@@ -102,16 +102,15 @@
 												name="email" value="${order.account.email}"
 												id="input-email" type="email">
 										</div>
-
 									</div>
 								</fieldset>
 								<fieldset>
 									<div class="row">
-										<div class="form-group col-md-6 col-lg-6 col-xl-6 required">
-											<label for="input-address-1">Địa chỉ <span
+										<div class="form-group col-md-6 col-lg-6 col-xl-12 required">
+											<label for="input-address-1">Địa chỉ giao hàng<span
 												class="required-f">*</span></label> <input disabled="disabled"
 												name="address" value="${order.address}"
-												id="input-address-1" required type="text">
+												id="input-address-1" required type="text" >
 										</div>
 									</div>
 								</fieldset>
