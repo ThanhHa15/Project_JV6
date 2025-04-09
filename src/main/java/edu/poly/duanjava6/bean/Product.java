@@ -1,5 +1,6 @@
 package edu.poly.duanjava6.bean;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -26,7 +27,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "Products")
-public class Product {
+public class Product implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

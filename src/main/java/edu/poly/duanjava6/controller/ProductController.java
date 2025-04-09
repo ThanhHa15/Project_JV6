@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import edu.poly.duanjava6.bean.Category;
 import edu.poly.duanjava6.bean.Product;
 import edu.poly.duanjava6.bean.ProductCategory;
 import edu.poly.duanjava6.service.BrandService;
@@ -33,6 +34,9 @@ public class ProductController {
 			@RequestParam("cid") Optional<String> cid,
 			@RequestParam("bid") Optional<String> bid,
 			@RequestParam("p") Optional<Integer> p) {
+
+				List<Category> cates = cService.findAll();
+    model.addAttribute("cates", cates);
 			if(cid.isPresent()) {
 				Page<Product> lstProduct = pService.findProductByCategory(cid, p);
 				List<Map<String, Object>> products = pService.listProductSearch(lstProduct);

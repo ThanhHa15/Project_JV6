@@ -26,6 +26,8 @@
 	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body ng-app="shopping-app" ng-controller="shopping-ctrl"
@@ -67,7 +69,7 @@
 								<div class="widget-content">
 									<ul class="sidebar_categories">
 										<li class="lvl-1"><c:forEach var="c" items="${cates}">
-												<a href="/product/list?cid=${c.id}" class="site-nav">${c.name}</a>
+											<a href="/product/list?cid=${c.id}" class="site-nav">${c.name}</a>
 											</c:forEach></li>
 
 									</ul>
@@ -111,6 +113,7 @@
 								</ul>
 							</div>
 							<!--End Brand-->
+
 
 						</div>
 					</div>
@@ -171,7 +174,7 @@
 												<!-- Start product button -->
 												<form class="variants add">
 													<button ng-click="cart.add(${p.product.id})"
-														class="btn btn-addto-cart" type="button">Add To
+														class="btn btn-addto-cart" type="button" onclick="showNotification()">Add To
 														Cart</button>
 												</form>
 												<div class="button-set">
@@ -269,6 +272,16 @@
 						}
 					});
 		</script>
+		<script>
+			function showNotification() {
+				Swal.fire({
+					title: "Thành công!",
+					text: "Đơn hàng đã được thêm vào giỏ hàng!",
+					icon: "success",
+					confirmButtonText: "OK"
+				});
+			}
+</script>
 		<!--End For Newsletter Popup-->
 	</div>
 </body>

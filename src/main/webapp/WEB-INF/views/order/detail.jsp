@@ -141,6 +141,7 @@
 												<th class="text-left">Sản phẩm</th>
 												<th>Giá</th>
 												<th>Số lượng</th>
+												<th>Trạng thái đơn hàng</th>
 												<th>Tổng cộng</th>
 											</tr>
 										</thead>
@@ -150,6 +151,7 @@
 													<td class="text-left">${o.product.name}</td>
 													<td>${(o.price)}</td>
 													<td>${o.quantity}</td>
+													<td>Đang giao</td>
 													<td>${o.price * o.quantity}</td>
 												</tr>
 											</c:forEach>

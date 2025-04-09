@@ -1,5 +1,6 @@
 package edu.poly.duanjava6.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -17,7 +18,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "Brands")
-public class Brand {
+public class Brand implements Serializable{
     @Id
     private String id;
     private String name;
