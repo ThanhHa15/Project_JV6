@@ -42,14 +42,7 @@
 		<div id="page-content">
 			<!--Collection Banner-->
 			<div class="collection-header">
-				<div class="collection-hero">
-					<div class="collection-hero__image">
-						
-					</div>
-					<div class="collection-hero__title-wrapper">
-						<h1 class="collection-hero__title page-width">LIST PRODUCT</h1>
-					</div>
-				</div>
+				<h1 style="margin-top: 80px;"><center>LIST PRODUCTS</center></h1>
 			</div>
 			<!--End Collection Banner-->
 
@@ -177,7 +170,7 @@
 														class="btn btn-addto-cart" type="button" onclick="showNotification()">Add To
 														Cart</button>
 												</form>
-												<div class="button-set">
+												<!-- <div class="button-set">
 
 													<div class="wishlist-btn">
 														<a class="wishlist add-to-wishlist" href="#"
@@ -186,7 +179,7 @@
 														</a>
 													</div>
 
-												</div>
+												</div> -->
 												<!-- end product button -->
 											</div>
 											<!-- end product image -->

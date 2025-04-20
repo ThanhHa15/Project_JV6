@@ -116,6 +116,16 @@
 								</fieldset>
 								<fieldset>
 									<div class="row">
+										<div class="form-group col-md-6 col-lg-6 col-xl-12 required">
+											<label >Số điện thoại<span
+												class="required-f">*</span></label> <input disabled="disabled"
+												name="phone" value="${order.phone}"
+												 required type="text" >
+										</div>
+									</div>
+								</fieldset>
+								<fieldset>
+									<div class="row">
 										<div class="form-group col-md-12 col-lg-12 col-xl-12">
 											<label for="input-company">Ghi chú<span
 												class="required-f">*</span></label>

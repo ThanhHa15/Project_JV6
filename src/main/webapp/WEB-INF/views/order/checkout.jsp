@@ -155,6 +155,18 @@
                                         </div>
                                     </div>
                                 </fieldset>
+								</fieldset>
+								<fieldset>
+									<div class="row">
+										<div class="form-group col-md-12 col-lg-12 col-xl-12">
+											<label for="input-company">Số điện thoại<span
+												class="required-f">*</span></label>
+											 <input 
+												type="text" ng-model="order.phone" class="form-control" 
+                                                       name="phone" >
+										</div>
+									</div>
+								</fieldset>
 								<fieldset>
 									<div class="row">
 										<div class="form-group col-md-12 col-lg-12 col-xl-12">

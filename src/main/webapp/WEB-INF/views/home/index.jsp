@@ -109,11 +109,11 @@
 														<i class="icon anm anm-bag-l"></i>
 													</button>
 												</form>
-												<div class="wishlist-btn">
+												<!-- <div class="wishlist-btn">
 													<a class="wishlist add-to-wishlist" href="wishlist.html">
 														<i class="icon anm anm-heart-l"></i>
 													</a>
-												</div>
+												</div> -->
 											</div>
 											<!-- end product button -->
 										</div>

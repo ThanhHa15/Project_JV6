@@ -35,6 +35,7 @@ public class Order implements Serializable{
 	@Column(name = "createdate")
 	private Date createDate = new Date();
 	private String address;
+	private String phone;
 
 	@ManyToOne
 	@JoinColumn(name = "username") //mỗi đơn hàng thuộc về một tài khoản 
